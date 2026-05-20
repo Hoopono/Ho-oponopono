@@ -18,7 +18,6 @@ html { scroll-behavior: smooth; }
   --bg-warm: #F5D08A;
 }
 
-/* CORREÇÃO PRINCIPAL: background fixo cobre tudo sem área branca */
 body {
   background: linear-gradient(160deg, #FCEABB 0%, #F8C471 25%, #E8A84C 50%, #D4893A 75%, #C07030 100%);
   background-attachment: fixed;
@@ -387,12 +386,10 @@ hr.line {
   margin-top: 0.3rem;
 }
 
-/* ===== FOOTER — sem área branca ===== */
 footer {
   text-align: center;
   padding: 2.5rem 1.5rem;
   border-top: 1px solid rgba(92,40,0,0.15);
-  /* herda o background fixo do body, sem gap */
 }
 
 footer p {
@@ -488,12 +485,18 @@ footer p {
 
 .dor-card {
   background: linear-gradient(145deg, rgba(252,234,187,0.7), rgba(245,208,138,0.5));
-  padding: 2rem 1.6rem;
+  padding: 2rem 1.6rem 0;
   transition: background 0.3s;
+  display: flex;
+  flex-direction: column;
 }
 
 .dor-card:hover {
   background: linear-gradient(145deg, rgba(252,234,187,0.95), rgba(245,208,138,0.8));
+}
+
+.dor-card-text {
+  padding-bottom: 1.4rem;
 }
 
 .dor-card-icon {
@@ -516,6 +519,33 @@ footer p {
   color: rgba(30,10,0,0.7);
   line-height: 1.75;
   margin: 0;
+}
+
+/* ===== IMAGEM DO CARD DE DOR ===== */
+.dor-card-img {
+  width: calc(100% + 3.2rem);
+  margin-left: -1.6rem;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+  margin-top: auto;
+  opacity: 0.9;
+  filter: saturate(1.05) contrast(1.02);
+  transition: opacity 0.3s, transform 0.4s ease;
+}
+
+.dor-card:hover .dor-card-img {
+  opacity: 1;
+  transform: scale(1.02);
+  overflow: hidden;
+}
+
+.dor-card-img-wrap {
+  overflow: hidden;
+  width: calc(100% + 3.2rem);
+  margin-left: -1.6rem;
+  margin-top: auto;
+  flex-shrink: 0;
 }
 
 .dor-espelho {
@@ -619,7 +649,16 @@ footer p {
 @media (max-width: 520px) {
   .dor-cards { grid-template-columns: 1fr; }
   .dor-section { padding: 3rem 1rem; }
-  .dor-card { padding: 1.5rem 1.2rem; }
+  .dor-card { padding: 1.5rem 1.2rem 0; }
+  .dor-card-img-wrap {
+    width: calc(100% + 2.4rem);
+    margin-left: -1.2rem;
+  }
+  .dor-card-img {
+    width: 100%;
+    margin-left: 0;
+    height: 200px;
+  }
   .dor-espelho { padding: 1.2rem 1.2rem; }
 }
 
@@ -690,33 +729,54 @@ footer p {
       <p>Você tenta avançar. Tenta perdoar. Tenta recomeçar. Mas algo invisível continua puxando você de volta — para as mesmas situações, os mesmos sentimentos, as mesmas dores.</p>
     </div>
 
-<div class="dor-cards r">
-  <div class="dor-card">
-    <span class="dor-card-icon">🔁</span>
-    <h3>Os mesmos padrões que se repetem</h3>
-    <p>Toda vez que parece que você saiu do ciclo, ele volta. Relacionamentos diferentes, mas a mesma dor. Empregos novos, mas a mesma sensação de estagnação.</p>
-    <img src="dor1.jpg" class="dor-card-img" alt="Padrões que se repetem">
-  </div>
-  <div class="dor-card">
-    <span class="dor-card-icon">💔</span>
-    <h3>Mágoas que não saem com o tempo</h3>
-    <p>Você tentou esquecer, tentou "seguir em frente", mas aquela ferida específica ainda dói quando você menos espera. E você não entende por quê.</p>
-    <img src="dor2.jpg" class="dor-card-img" alt="Mágoas antigas">
-  </div>
-  <div class="dor-card">
-    <span class="dor-card-icon">🧱</span>
-    <h3>A sensação de estar presa numa vida que não é a sua</h3>
-    <p>Existe uma versão de você que sabe que merece mais. Mais paz, mais amor, mais abundância. Mas algo sempre bloqueia antes de chegar lá.</p>
-    <img src="comprar.jpeg" class="dor-card-img" alt="Sensação de bloqueio">
-  </div>
-  <div class="dor-card">
-    
-    <span class="dor-card-icon">😶</span>
-    <h3>Culpa que você carrega em silêncio</h3>
-    <p>Situações do passado que você não consegue soltar. Pessoas que você magoou, ou que te magoaram, e que ainda ocupam espaço dentro de você.</p>
-    <img src="dor4.jpg" class="dor-card-img" alt="Culpa silenciosa">
-  </div>
-</div>
+    <div class="dor-cards r">
+
+      <div class="dor-card">
+        <div class="dor-card-text">
+          <span class="dor-card-icon">🔁</span>
+          <h3>Os mesmos padrões que se repetem</h3>
+          <p>Toda vez que parece que você saiu do ciclo, ele volta. Relacionamentos diferentes, mas a mesma dor. Empregos novos, mas a mesma sensação de estagnação.</p>
+        </div>
+        <div class="dor-card-img-wrap">
+          <img src="dor1.jpg" class="dor-card-img" alt="Padrões que se repetem">
+        </div>
+      </div>
+
+      <div class="dor-card">
+        <div class="dor-card-text">
+          <span class="dor-card-icon">💔</span>
+          <h3>Mágoas que não saem com o tempo</h3>
+          <p>Você tentou esquecer, tentou "seguir em frente", mas aquela ferida específica ainda dói quando você menos espera. E você não entende por quê.</p>
+        </div>
+        <div class="dor-card-img-wrap">
+          <img src="dor2.jpg" class="dor-card-img" alt="Mágoas antigas">
+        </div>
+      </div>
+
+      <div class="dor-card">
+        <div class="dor-card-text">
+          <span class="dor-card-icon">🧱</span>
+          <h3>A sensação de estar presa numa vida que não é a sua</h3>
+          <p>Existe uma versão de você que sabe que merece mais. Mais paz, mais amor, mais abundância. Mas algo sempre bloqueia antes de chegar lá.</p>
+        </div>
+        <div class="dor-card-img-wrap">
+          <img src="dor3.jpg" class="dor-card-img" alt="Sensação de bloqueio">
+        </div>
+      </div>
+
+      <div class="dor-card">
+        <div class="dor-card-text">
+          <span class="dor-card-icon">😶</span>
+          <h3>Culpa que você carrega em silêncio</h3>
+          <p>Situações do passado que você não consegue soltar. Pessoas que você magoou, ou que te magoaram, e que ainda ocupam espaço dentro de você.</p>
+        </div>
+        <div class="dor-card-img-wrap">
+          <img src="dor4.jpg" class="dor-card-img" alt="Culpa silenciosa">
+        </div>
+      </div>
+
+    </div>
+
     <div class="dor-espelho r">
       <p>"Eu já tentei de tudo. Li livros, fiz terapia, tentei perdoar. Mas a mesma dor volta. Às vezes sinto que estou condenada a repetir isso para sempre."</p>
     </div>
@@ -921,4 +981,3 @@ document.querySelectorAll('.faq-btn').forEach(btn => {
 </script>
 </body>
 </html>
-m
